@@ -3,7 +3,7 @@ import {authenticationMiddleware} from '../middleware/authentication-middleware'
 import { UserUserInputError } from '../errors/UserUserInputError'
 import { User } from '../models/User'
 import { Role } from '../models/Role'
-import { saveOneUser, getUserById } from '../daos/user-dao'
+import { saveOneUser, getUserById, updateUser } from '../daos/user-dao'
 import { authorizationMiddleware } from '../middleware/authorization-middleware'
 import { InvalidCredentialsError } from '../errors/InvalidCredentialsError'
 
@@ -53,3 +53,45 @@ userRouter.get('/:id', authorizationMiddleware(['admin', 'user']), async (req: R
     }
     
 })
+
+//update user
+userRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Request, res:Response, next:NextFunction)=>{
+
+    let { userId,
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        role } = req.body
+    if(!userId) { 
+        res.status(400).send('Must have a User ID and at least one other field')
+    }
+    else if(isNaN(+userId)) { 
+        res.status(400).send('ID must be a number')
+    }
+    else if (req.session.user.role === "user" && req.session.user.userId !== +userId){
+        next(new InvalidCredentialsError)}
+    else {
+        let updatedUser:User = {
+            userId,
+            username,
+            password,
+            firstName,
+            lastName,
+            email,
+            role
+        }
+        updatedUser.username = username || undefined
+        updatedUser.password = password || undefined
+        updatedUser.firstName = firstName || undefined
+        updatedUser.lastName = lastName || undefined
+        updatedUser.email = email || undefined
+        try {
+            let result = await updateUser(updatedUser)
+            res.json(result)
+        } catch (e) {
+            next(e)
+        }
+    }
+}) 

@@ -4,7 +4,7 @@ import { connectionPool } from ".";
 import { CharacterDTOtoCharacterConvertor } from "../utils/CharacterDTO-to-Character-Convertor";
 import { UserNotFoundError } from "../errors/UserNotFoundError";
 
-
+//all charas by user
 export async function getCharacterByUser(id:number):Promise<Character[]> {
     let client: PoolClient
     try {
@@ -28,9 +28,9 @@ export async function getCharacterByUser(id:number):Promise<Character[]> {
     }
 }
 
-//get character + stats -- needs to be somewhere else so update stats
-//get character + weapons  --needs to be somewhere else so add new, delete, and update
+//add character
+
 //get full character info
 //maybe get all characters all info?
-//add character
+
 //edit character

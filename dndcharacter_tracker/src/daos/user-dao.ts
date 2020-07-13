@@ -38,7 +38,7 @@ export async function getUserByUsernameAndPassword(username:string, password:str
     }
 }
 
-// save new user
+//add new user
 export async function saveOneUser(newUser:User):Promise<User>{ //make sure this works right
     let client:PoolClient
     try{

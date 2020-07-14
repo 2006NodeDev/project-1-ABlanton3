@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response, NextFunction} from 'express'
 import { sessionMiddleware } from './middleware/session-middleware'
 import { loggingMiddleware } from './middleware/logging-middleware'
 import { InvalidCredentialsError } from './errors/InvalidCredentialsError'

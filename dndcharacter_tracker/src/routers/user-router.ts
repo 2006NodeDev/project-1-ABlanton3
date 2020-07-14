@@ -7,9 +7,10 @@ import { saveOneUser, getUserById, updateUser } from '../daos/user-dao'
 import { authorizationMiddleware } from '../middleware/authorization-middleware'
 import { InvalidCredentialsError } from '../errors/InvalidCredentialsError'
 
+
 export const userRouter = express.Router()
 
-userRouter.use(authenticationMiddleware)
+
 
 
 //create new users, auto sets role to user
@@ -36,7 +37,9 @@ userRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
     }
 })
 
-//get user by id, admin can see all, user can see self *hopefully*
+userRouter.use(authenticationMiddleware)
+
+//get user by id, admin can see all, user can see self but nobody else
 userRouter.get('/:id', authorizationMiddleware(['admin', 'user']), async (req: Request, res: Response, next: NextFunction) => {
     let { id } = req.params
     if (isNaN(+id)) {

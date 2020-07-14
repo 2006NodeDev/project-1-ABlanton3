@@ -7,36 +7,6 @@ import { UserUserInputError } from "../errors/UserUserInputError";
 import { UserNotFoundError } from "../errors/UserNotFoundError";
 
 
-//login
-export async function getUserByUsernameAndPassword(username:string, password:string):Promise<User>{
-    let client: PoolClient
-    try{
-        client = await connectionPool.connect()
-        let results = await client.query(`select u."user_id"
-            u."username",
-            u."password",
-            u."first_name",
-            u."last_name",
-            u."email",
-            r."role_id",
-            r."role"
-            from dndcharacter.users u left join dndcharacter.roles r on u."role" = r."role_id
-            where u."username" =$1 and u."password" = $2;`,
-            [username, password])
-        if(results.rowCount === 0){
-            throw new Error ('User Not Found')
-        }
-        return UserDTOtoUserConvertor(results.rows[0])
-    } catch (e) {
-        if (e.message === 'User Not Found'){
-            throw new InvalidCredentialsError()
-        }
-        console.log(e)
-        throw new Error('Unhandled Error Occurded')
-    } finally {
-        client && client.release()
-    }
-}
 
 //add new user
 export async function saveOneUser(newUser:User):Promise<User>{ //make sure this works right
@@ -44,9 +14,9 @@ export async function saveOneUser(newUser:User):Promise<User>{ //make sure this 
     try{
         client = await connectionPool.connect()
         await client.query('BEGIN;')//start a transaction
-        let results = await client.query(`insert into dndcharacter.users ("username", "password", "first_name", "last_name", "email", "role")
-                                            values($1,$2,$3,$4, 2) returning "user_id" `,
-                                            [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.role])
+        let results = await client.query(`insert into dndcharacter.users ("username", "password", "first_name", "last_name", "email")
+                                            values($1,$2,$3,$4,$5) returning "user_id" `,
+                                            [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email])
         newUser.userId = results.rows[0].user_id
         await client.query('COMMIT;')
         return newUser
@@ -71,27 +41,27 @@ export async function updateUser(updatedUser: User){
         client.query('begin');
 
         if(updatedUser.username){
-            await client.query(`update dndcharater.users set "username = $1
+            await client.query(`update dndcharacter.users set "username = $1
                                     where user_id = $2;`,
                                     [updatedUser.username, updatedUser.userId])
         }
         if(updatedUser.password){
-            await client.query(`update dndcharater.users set "password" = $1
+            await client.query(`update dndcharacter.users set "password" = $1
                                 where user_id = $2;`,
                                 [updatedUser.password, updatedUser.userId])
         }
         if(updatedUser.firstName){
-            await client.query(`update dndcharater.users set "first_name" = $1
+            await client.query(`update dndcharacter.users set "first_name" = $1
                                 where user_id = $2;`,
                                 [updatedUser.firstName, updatedUser.userId])
         }
         if(updatedUser.lastName){
-            await client.query(`update dndcharater.users set "last_name" = $1
+            await client.query(`update dndcharacter.users set "last_name" = $1
                                 where user_id = $2;`,
                                 [updatedUser.lastName, updatedUser.userId])
         }
         if(updatedUser.email){
-            await client.query(`update dndcharater.users set "email" = $1
+            await client.query(`update dndcharacter.users set "email" = $1
                                 where user_id = $2;`,
                                 [updatedUser.email, updatedUser.userId])
         }
@@ -112,7 +82,7 @@ export async function getUserById(id:number):Promise<User>{
     let client: PoolClient
     try{
         client = await connectionPool.connect()
-        let results = await client.query(`select u.user_id,
+        let results = await client.query(`select u."user_id",
                                         u."username",
                                         u."password",
                                         u."first_name",
@@ -120,8 +90,8 @@ export async function getUserById(id:number):Promise<User>{
                                         u."email",
                                         r."role_id",
                                         r."role"
-                                        from dndcharacter.users u left join dndcharacter.roles r on u."role" = r.role_id
-                                        where u."user_id = $1;`
+                                        from dndcharacter.users u left join dndcharacter.roles r on u."role" = r."role_id"
+                                        where u."user_id" = $1;`,
                                         [id])
         if(results.rowCount === 0){
             throw new Error('User Not Found')
@@ -130,6 +100,37 @@ export async function getUserById(id:number):Promise<User>{
     } catch(e){
         if(e.message === 'User Not Found'){
             throw new UserNotFoundError()
+        }
+        console.log(e)
+        throw new Error('Unhandled Error Occurred')
+    } finally {
+        client && client.release()
+    }
+}
+
+//login
+export async function getUserByUsernameAndPassword(username:string, password:string):Promise<User>{
+    let client: PoolClient
+    try{
+        client = await connectionPool.connect()
+        let results = await client.query(`select u."user_id",
+            u."username",
+            u."password",
+            u."first_name",
+            u."last_name",
+            u."email",
+            r."role_id",
+            r."role"
+            from dndcharacter.users u left join dndcharacter.roles r on u."role" = r."role_id"
+            where u."username" = $1 and u."password" = $2;`,
+            [username, password])
+        if(results.rowCount === 0){
+            throw new Error ('User Not Found')
+        }
+        return UserDTOtoUserConvertor(results.rows[0])
+    } catch (e) {
+        if (e.message === 'User Not Found'){
+            throw new InvalidCredentialsError()
         }
         console.log(e)
         throw new Error('Unhandled Error Occurded')

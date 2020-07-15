@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { NavBarComponent } from './components/NavBarComponent/NavBarComponent';
 import { LoginComponent } from './components/LoginComponent/LoginComponent';
+import SignUp from './components/SaveOneUserComponent/SaveOneUserComponent';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { User } from './models/User';
 import { ClickerComponent } from './components/ClickerComponent/ClickerComponent';
@@ -45,6 +46,7 @@ function App() {
         {/* with route we can use the component property to specify what should be rendered
          we get passed in as props, history, location and match, but we can't set any of our own props*/}
         <Route path='/login' render={(props)=>(<LoginComponent changeCurrentUser={changeCurrentUser} {...props} />)} />
+        <Route path='/signup' render={(props)=>(<SignUp/>)} />
         <Route path='/profile/:userId' component={ProfileComponent}/>
       </Router>
 

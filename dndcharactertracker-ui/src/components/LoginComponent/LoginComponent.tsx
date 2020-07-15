@@ -27,7 +27,6 @@ export const LoginComponent:FunctionComponent<any> = (props) => {
         let res = await dndcharactertrackerLogin(username, password)
         props.changeCurrentUser(res)
         changePassword('')
-        props.history.push('/clicker') //pretty sure I don't have a clicker yet
     }
 
     return(

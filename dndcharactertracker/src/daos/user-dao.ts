@@ -133,7 +133,7 @@ export async function getUserByUsernameAndPassword(username:string, password:str
             throw new InvalidCredentialsError()
         }
         console.log(e)
-        throw new Error('Unhandled Error Occurded')
+        throw new Error('Unhandled Error Occurred')
     } finally {
         client && client.release()
     }

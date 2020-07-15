@@ -41,6 +41,7 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
     let menuItems = []
     //always have the login item
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/login'>Login</Link></MenuItem>)
+    menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Sign Up</Link></MenuItem>)
     if(props.user){
         //if they are logged in, add the other items
         menuItems.push(<MenuItem onClick={handleClose}><Link to='/clicker'>Clicker</Link></MenuItem>,

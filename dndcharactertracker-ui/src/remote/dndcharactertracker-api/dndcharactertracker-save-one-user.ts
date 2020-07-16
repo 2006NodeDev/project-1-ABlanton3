@@ -1,7 +1,8 @@
 import { dndcharactertrackerClient } from "."
+import { User } from "../../models/User";
 
 
-export const dndcharactertrackerSaveOneUser = async (username:string, password:string, firstName:string, lastName:string, email:string) =>{
+export const dndcharactertrackerSaveOneUser = async (newUser:User) =>{
     try{
         let response = await dndcharactertrackerClient.post('/users')
         return response.data

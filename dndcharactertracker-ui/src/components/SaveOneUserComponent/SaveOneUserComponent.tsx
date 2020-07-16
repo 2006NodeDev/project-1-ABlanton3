@@ -1,99 +1,92 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { FunctionComponent, SyntheticEvent, useState } from 'react'
+import { Button, TextField } from '@material-ui/core'
+import {User} from '../../models/User'
+import {toast} from 'react-toastify'
+import { dndcharactertrackerSaveOneUser} from '../../remote/dndcharactertracker-api/dndcharactertracker-save-one-user'
 
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
-export default function SignUp() {
-  const classes = useStyles();
+export const SaveOneUserComponent: FunctionComponent<any> = (props) => {
+    let [firstName, changeFirstName] = useState('')
+    let [lastName, changeLastName] = useState('')
+    let [username, changeUsername] = useState('')
+    let [password, changePassword] = useState('')
+    let [confirmPassword, changeConfirmPassword] = useState('')
+    let [email, changeEmail] = useState('')
+    let [image, changeImage] = useState(undefined)
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-        </form>
-      </div>
-      <Box mt={5}>
-      </Box>
-    </Container>
-  );
+
+    const updateFirstName = (e:any) => {
+        e.preventDefault()
+        changeFirstName(e.currentTarget.value)
+    }
+    const updateLastName = (e:any) => {
+        e.preventDefault()
+        changeLastName(e.currentTarget.value)
+    }
+    const updateUsername = (e:any) => {
+        e.preventDefault()
+        changeUsername(e.currentTarget.value)
+    }
+    const updatePassword = (e:any) => {
+        e.preventDefault()
+        changePassword(e.currentTarget.value)
+    }
+    const updateConfirmPassword = (e:any) => {
+        e.preventDefault()
+        changeConfirmPassword(e.currentTarget.value)
+    }
+    const updateEmail = (e:any) => {
+        e.preventDefault()
+        changeEmail(e.currentTarget.value)
+    }
+
+    const updateImage = (e:any) => {
+        let file:File = e.currentTarget.files[0]
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            console.log(reader.result)
+            //changeImage(reader.result)
+        }
+    }
+
+
+
+    const submitUser = async (e: SyntheticEvent) => {
+        e.preventDefault()
+        if(password !== confirmPassword){
+            toast.error('Password Do Not Match')
+        }else {
+            let newUser:User = {
+                userId:0,
+                username,
+                password,
+                firstName,
+                lastName,
+                email,
+                role: '',
+                image
+            }
+    
+            let res = await dndcharactertrackerSaveOneUser(newUser)
+        }   
+    }
+
+
+    return (
+        <div>
+            <form onSubmit={submitUser}>
+                <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
+                <TextField id="standard-basic" type='password' label="password" value={password} onChange={updatePassword}/>
+                <TextField id="standard-basic" type='password' label="confirm password" value={confirmPassword} onChange={updateConfirmPassword}/>
+                <TextField id="standard-basic" type='email' label="email" value={email} onChange={updateEmail}/>
+                {/* figure out how to do role on your own, look at select component from material ui */}
+                <label htmlFor='file'>Profile Pic</label>
+                <input type='file' name='file' accept='image/*' onChange={updateImage} />
+                <img src={image}/>
+                <Button variant="contained" type='submit'>Submit</Button>
+            </form>
+        </div>
+    )
 }

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { User } from '../../models/User'
-import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
+import { CardContent, Card} from '@material-ui/core';
 
 interface IUserDisplayProps{
     user:User
@@ -13,6 +13,7 @@ interface IUserDisplayProps{
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      justifyContent: "center",
       display: 'flex',
       flexWrap: 'wrap',
       '& > *': {
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
         height: theme.spacing(17),
       },
     },
-    paper:{
-        backgroundColor:'grey' 
+    card:{
+        backgroundColor:'red' 
     }
   }),
 );
@@ -33,8 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export const UserDisplayComponent:FunctionComponent<IUserDisplayProps> = (props)=>{
     let classes = useStyles()
     return(
-        <div className={classes.root}>
-            <Paper className={classes.paper}elevation={4}>
+      <div>
+        <Card className={classes.root}>
+            <CardContent>
                 <Typography variant='body1'>
                    Username : {props.user.username}
                 </Typography>
@@ -45,7 +47,8 @@ export const UserDisplayComponent:FunctionComponent<IUserDisplayProps> = (props)
                    Role : {props.user.role}
                 </Typography>
                 <Button variant='contained' color='inherit'>Edit</Button>
-            </Paper>
-        </div>
+            </CardContent>
+        </Card>
+      </div>
     )
 }

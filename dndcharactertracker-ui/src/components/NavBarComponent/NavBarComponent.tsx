@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -37,17 +36,13 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    //we can programmatically build the menu items
+
     let menuItems = []
     //always have the login item
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/login'>Login</Link></MenuItem>)
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Sign Up</Link></MenuItem>)
     if(props.user){
-        //if they are logged in, add the other items
-        menuItems.push(<MenuItem onClick={handleClose}><Link to='/clicker'>Clicker</Link></MenuItem>,
-        <MenuItem onClick={handleClose}><Link to='/first'>First</Link></MenuItem>,
-        <MenuItem onClick={handleClose}><Link to='/title'>Title</Link></MenuItem>,
-        <MenuItem onClick={handleClose}><Link to={`/profile/${(props.user)?props.user.userId : '0' }`}>My Profile</Link></MenuItem>)
+        menuItems.push(<MenuItem onClick={handleClose}><Link to={`/profile/${(props.user)?props.user.userId : '0' }`}>My Profile</Link></MenuItem>)
     }
     if(props.user && props.user.role === 'Admin'){
         menuItems.push(<MenuItem onClick={handleClose}><Link to='/users'>All Users</Link></MenuItem>,)
@@ -56,8 +51,6 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
 
     return (
         <nav>
-
-
             <AppBar position="static">
                 <Toolbar>
                     <IconButton onClick={handleClick} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -73,7 +66,6 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
                     <Typography variant="h6" className={classes.title}>
                         Dungeons and Dragons: Character Tracker
                 </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </nav>

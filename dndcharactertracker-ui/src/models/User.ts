@@ -8,4 +8,5 @@ export interface User{
       lastName: string // not null
       email: string // not null
       role: string// not null
+      image?:string
   }

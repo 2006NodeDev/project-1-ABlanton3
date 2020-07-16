@@ -8,7 +8,7 @@ interface ILoginProps extends RouteComponentProps{
     changeCurrentUser:(newUser:any)=>void
 }
 
-export const LoginComponent:FunctionComponent<any> = (props) => {
+export const LoginComponent:FunctionComponent<ILoginProps> = (props) => {
     const [username, changeUsername] = useState('')
     const [password, changePassword] = useState('')
 
@@ -32,8 +32,8 @@ export const LoginComponent:FunctionComponent<any> = (props) => {
     return(
         <div>
             <form autoComplete="off" onSubmit={loginSubmit}>
-                <TextField id="standard-basic" label="Username" value={username} onChange={updateUsername}/>
-                <TextField id="standard-basic" type='password' label="Password" value={password} onChange={updatePassword} />
+                <TextField id="outlined-size-small" variant="outlined" size="small" label="Username" value={username} onChange={updateUsername}/>
+                <TextField id="outlined-size-small" variant="outlined" size="small"  type='password' label="Password" value={password} onChange={updatePassword} />
                 <Button type='submit' variant="contained" color="primary">Login</Button>
             </form>
         </div> //go find a good, pretty text field to put in there & make sure you password up the password

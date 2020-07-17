@@ -1,10 +1,10 @@
-import { User } from "../models/User";
+import { User } from "../../models/User";
 import { PoolClient } from "pg";
 import { connectionPool } from ".";
-import { InvalidCredentialsError } from "../errors/InvalidCredentialsError";
-import { UserDTOtoUserConvertor } from "../utils/UserDTO-to-User-convertor";
-import { UserUserInputError } from "../errors/UserUserInputError";
-import { UserNotFoundError } from "../errors/UserNotFoundError";
+import { InvalidCredentialsError } from "../../errors/InvalidCredentialsError";
+import { UserDTOtoUserConvertor } from "../../utils/UserDTO-to-User-convertor";
+import { UserUserInputError } from "../../errors/UserUserInputError";
+import { UserNotFoundError } from "../../errors/UserNotFoundError";
 
 
 

@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { authorizationMiddleware } from '../middleware/authorization-middleware'
-import { getCharacterByUser } from '../daos/character-daos'
+import { getCharacterByUser } from '../daos/SQL/character-daos'
 
 
 export const characterRouter = express.Router()

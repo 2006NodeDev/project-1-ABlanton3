@@ -3,7 +3,7 @@ import {authenticationMiddleware} from '../middleware/authentication-middleware'
 import { UserUserInputError } from '../errors/UserUserInputError'
 import { User } from '../models/User'
 import { Role } from '../models/Role'
-import { saveOneUser, getUserById, updateUser } from '../daos/user-dao'
+import { saveOneUser, getUserById, updateUser } from '../daos/SQL/user-dao'
 import { authorizationMiddleware } from '../middleware/authorization-middleware'
 import { InvalidCredentialsError } from '../errors/InvalidCredentialsError'
 

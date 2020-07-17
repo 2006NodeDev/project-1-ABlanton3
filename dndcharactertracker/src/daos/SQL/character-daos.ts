@@ -1,8 +1,8 @@
-import { Character } from "../models/Character";
+import { Character } from "../../models/Character";
 import { PoolClient } from "pg";
 import { connectionPool } from ".";
-import { CharacterDTOtoCharacterConvertor } from "../utils/CharacterDTO-to-Character-Convertor";
-import { UserNotFoundError } from "../errors/UserNotFoundError";
+import { CharacterDTOtoCharacterConvertor } from "../../utils/CharacterDTO-to-Character-Convertor";
+import { UserNotFoundError } from "../../errors/UserNotFoundError";
 
 //all charas by user
 export async function getCharacterByUser(id:number):Promise<Character[]> {

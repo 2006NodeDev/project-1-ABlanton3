@@ -3,7 +3,7 @@ import { sessionMiddleware } from './middleware/session-middleware'
 import { loggingMiddleware } from './middleware/logging-middleware'
 import { InvalidCredentialsError } from './errors/InvalidCredentialsError'
 import { userRouter } from './routers/user-router'
-import { getUserByUsernameAndPassword } from './daos/user-dao'
+import { getUserByUsernameAndPassword } from './daos/SQL/user-dao'
 import { corsFilter } from './middleware/cors-filter'
 
 

@@ -1,10 +1,11 @@
 //for setting up base axios client
 import axios from 'axios'
+import { dndBaseUrl } from '../../environment'
 
 
 
 export const dndcharactertrackerClient = axios.create({
-    baseURL: 'http://localhost:2020',
+    baseURL: dndBaseUrl,
     headers:{
         'Content-Type': 'application/json'
     },

@@ -47,7 +47,7 @@ export const SaveOneUserComponent: FunctionComponent<any> = (props) => {
         reader.readAsDataURL(file)
         reader.onload = () => {
             console.log(reader.result)
-            //changeImage(reader.result)
+            changeImage(reader.result)
         }
     }
 

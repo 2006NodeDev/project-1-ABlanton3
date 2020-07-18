@@ -26,7 +26,7 @@ userRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
             firstName,
             lastName,
             email,
-            role:new Role
+            role:new Role,
         }
         try{
             let savedUser = await saveOneUser(newUser)
@@ -66,7 +66,8 @@ userRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Req
         firstName,
         lastName,
         email,
-        role } = req.body
+        role,
+        image } = req.body
     if(!userId) { 
         res.status(400).send('Must have a User ID and at least one other field')
     }
@@ -83,13 +84,15 @@ userRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Req
             firstName,
             lastName,
             email,
-            role
+            role,
+            image
         }
         updatedUser.username = username || undefined
         updatedUser.password = password || undefined
         updatedUser.firstName = firstName || undefined
         updatedUser.lastName = lastName || undefined
         updatedUser.email = email || undefined
+        updatedUser.image = image || undefined
         try {
             let result = await updateUser(updatedUser)
             res.json(result)

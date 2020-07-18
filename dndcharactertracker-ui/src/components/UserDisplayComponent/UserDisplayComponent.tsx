@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     card:{
-        backgroundColor:'red' 
+        backgroundColor:'grey' 
     }
   }),
 );
@@ -39,6 +39,12 @@ export const UserDisplayComponent:FunctionComponent<IUserDisplayProps> = (props)
             <CardContent>
                 <Typography variant='body1'>
                    Username : {props.user.username}
+                </Typography>
+                <Typography variant='body1'>
+                   First Name : {props.user.firstName}
+                </Typography>
+                <Typography variant='body1'>
+                   Last Name : {props.user.lastName}
                 </Typography>
                 <Typography variant='body1'>
                    Email : {props.user.email}

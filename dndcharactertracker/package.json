@@ -27,6 +27,7 @@
     "@types/pg": "7.4.8",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
-    "@types/express-session": "1.15.8"
+    "@types/express-session": "1.15.8",
+    "nodemon": "2.0.4"
   }
 }

@@ -14,9 +14,9 @@ export async function saveOneUser(newUser:User):Promise<User>{ //make sure this 
     try{
         client = await connectionPool.connect()
         await client.query('BEGIN;')//start a transaction
-        let results = await client.query(`insert into dndcharacter.users ("username", "password", "first_name", "last_name", "email")
+        let results = await client.query(`insert into dndcharacter.users ("username", "password", "first_name", "last_name", "email", "image")
                                             values($1,$2,$3,$4,$5) returning "user_id" `,
-                                            [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email])
+                                            [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.image])
         newUser.userId = results.rows[0].user_id
         await client.query('COMMIT;')
         return newUser
@@ -34,7 +34,7 @@ export async function saveOneUser(newUser:User):Promise<User>{ //make sure this 
 }
 
 //update user
-export async function updateUser(updatedUser: User){
+export async function updateUser(updatedUser:User){
     let client: PoolClient;
     try{
         client = await connectionPool.connect();
@@ -65,7 +65,12 @@ export async function updateUser(updatedUser: User){
                                 where user_id = $2;`,
                                 [updatedUser.email, updatedUser.userId])
         }
+        if(updatedImage.image){
+            await client.query(`update dndcharacter.image set "image" = $1
+                                where user_id = $2;`,
+                                [updatedImage.image, updatedUser.userId])
 
+        }
         await client.query('COMMIT;')
         return updatedUser
     }catch (e) {
@@ -89,7 +94,8 @@ export async function getUserById(id:number):Promise<User>{
                                         u."last_name",
                                         u."email",
                                         r."role_id",
-                                        r."role"
+                                        r."role",
+                                        u."image"
                                         from dndcharacter.users u left join dndcharacter.roles r on u."role" = r."role_id"
                                         where u."user_id" = $1;`,
                                         [id])
@@ -120,7 +126,8 @@ export async function getUserByUsernameAndPassword(username:string, password:str
             u."last_name",
             u."email",
             r."role_id",
-            r."role"
+            r."role",
+            u."image"
             from dndcharacter.users u left join dndcharacter.roles r on u."role" = r."role_id"
             where u."username" = $1 and u."password" = $2;`,
             [username, password])

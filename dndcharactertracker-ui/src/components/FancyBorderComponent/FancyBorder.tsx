@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 
 export const FancyBorder:FunctionComponent<any> = (props) =>{
     let fancyStyle = {
-        border: '2px dashed orange',
+        border: '2px dashed red',
         margin: '2vw 2vh 2vw 2vh'
     }
 

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-//this is the skeleton
+
 export const NavBarComponent: FunctionComponent<any> = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -38,15 +38,13 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
     };
 
     let menuItems = []
-    //always have the login item
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/login'>Login</Link></MenuItem>)
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Sign Up</Link></MenuItem>)
     if(props.user){
         menuItems.push(<MenuItem onClick={handleClose}><Link to={`/profile/${(props.user)?props.user.userId : '0' }`}>My Profile</Link></MenuItem>)
+        menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Characters</Link></MenuItem>)
     }
-    if(props.user && props.user.role === 'Admin'){
-        menuItems.push(<MenuItem onClick={handleClose}><Link to='/users'>All Users</Link></MenuItem>,)
-    }
+
 
 
     return (

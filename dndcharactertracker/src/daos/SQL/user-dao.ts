@@ -89,7 +89,6 @@ export async function getUserById(id:number):Promise<User>{
         client = await connectionPool.connect()
         let results = await client.query(`select u."user_id",
                                         u."username",
-                                        u."password",
                                         u."first_name",
                                         u."last_name",
                                         u."email",

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, SyntheticEvent } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps} from 'react-router-dom'
 import { dndcharactertrackerLogin } from '../../remote/dndcharactertracker-api/dndcharactertracker-login'
 
 interface ILoginProps extends RouteComponentProps{
@@ -27,16 +27,16 @@ export const LoginComponent:FunctionComponent<ILoginProps> = (props) => {
         let res = await dndcharactertrackerLogin(username, password)
         props.changeCurrentUser(res)
         changePassword('')
-        props.history.push('/profile')
+        props.history.push('/')
     }
 
     return(
         <div>
             <form autoComplete="off" onSubmit={loginSubmit}>
-                <TextField id="outlined-size-small" variant="outlined" size="small" label="Username" value={username} onChange={updateUsername}/>
-                <TextField id="outlined-size-small" variant="outlined" size="small"  type='password' label="Password" value={password} onChange={updatePassword} />
+                <TextField id="outlined-size-small" label="Username" value={username} onChange={updateUsername}/>
+                <TextField id="outlined-size-small" type='password' label="Password" value={password} onChange={updatePassword} />
                 <Button type='submit' variant="contained" color="primary">Login</Button>
             </form>
-        </div> //go find a good, pretty text field to put in there & make sure you password up the password
+        </div> //go find a good, pretty text field to put in there
     )
 }

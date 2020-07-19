@@ -4,10 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme, createMuiTheme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import {Link} from 'react-router-dom'
+import { red } from '@material-ui/core/colors';
+
 
 //this is an example of Jss - a more js way of doing css
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
 
 
 export const NavBarComponent: FunctionComponent<any> = (props) => {
@@ -41,8 +44,8 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/login'>Login</Link></MenuItem>)
     menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Sign Up</Link></MenuItem>)
     if(props.user){
-        menuItems.push(<MenuItem onClick={handleClose}><Link to={`/profile/${(props.user)?props.user.userId : '0' }`}>My Profile</Link></MenuItem>)
-        menuItems.push(<MenuItem onClick={handleClose}><Link to='/signup'>Characters</Link></MenuItem>)
+        menuItems.push(<MenuItem onClick={handleClose}><Link to={`/profile/${(props.user)?props.user.userId : '0' }`}>My Profile</Link></MenuItem>,
+        <MenuItem onClick={handleClose}><Link to='/characters'>Characters</Link></MenuItem>)
     }
 
 

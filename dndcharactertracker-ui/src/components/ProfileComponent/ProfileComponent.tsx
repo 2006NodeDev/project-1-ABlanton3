@@ -1,8 +1,7 @@
-
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { UserDisplayComponent } from '../UserDisplayComponent/UserDisplayComponent';
 import { User } from '../../models/User';
-import { useParams} from 'react-router-dom'
+import { useParams} from 'react-router-dom';
 import { dndcharactertrackerGetUserById } from '../../remote/dndcharactertracker-api/dndcharactertracker-get-by-id';
 
 

@@ -27,6 +27,7 @@ userRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
             lastName,
             email,
             role:new Role,
+            image:''
         }
         try{
             let savedUser = await saveOneUser(newUser)

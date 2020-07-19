@@ -82,7 +82,7 @@ export const SaveOneUserComponent: FunctionComponent<any> = (props) => {
                 <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
                 <TextField id="standard-basic" type='password' label="Password" value={password} onChange={updatePassword}/>
                 <TextField id="standard-basic" type='password' label="Confirm password" value={confirmPassword} onChange={updateConfirmPassword}/>
-                <TextField id="standard-basic" type='email' label="Cmail" value={email} onChange={updateEmail}/>
+                <TextField id="standard-basic" type='email' label="Email" value={email} onChange={updateEmail}/>
                 {/* figure out how to do role on your own, look at select component from material ui */}
                 <label htmlFor='file'>Profile Pic</label>
                 <input type='file' name='file' accept='image/*' onChange={updateImage} />

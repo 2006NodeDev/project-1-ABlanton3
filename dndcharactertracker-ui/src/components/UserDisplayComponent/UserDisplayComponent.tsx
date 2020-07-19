@@ -52,6 +52,9 @@ export const UserDisplayComponent:FunctionComponent<IUserDisplayProps> = (props)
                 <Typography variant='body1'>
                    Role : {props.user.role}
                 </Typography>
+                <Typography variant='body1'>
+                   Image : {props.user.image}
+                </Typography>
                 <Button variant='contained' color='inherit'>Edit</Button>
             </CardContent>
         </Card>

@@ -1,6 +1,4 @@
-// this component will be on the path /profile/idnumber
-//we will use that id number to send a request to the api to get that user
-//we will pass that user into a user display component
+
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { UserDisplayComponent } from '../UserDisplayComponent/UserDisplayComponent';
 import { User } from '../../models/User';

@@ -9,20 +9,20 @@ import { UserNotFoundError } from "../../errors/UserNotFoundError";
 
 
 //add new user
-export async function saveOneUser(newUser:User):Promise<User>{ //make sure this works right
+export async function saveOneUser(newUser:User):Promise<User>{ 
     let client:PoolClient
     try{
         client = await connectionPool.connect()
-        await client.query('BEGIN;')//start a transaction
+        await client.query('BEGIN;')
         let results = await client.query(`insert into dndcharacter.users ("username", "password", "first_name", "last_name", "email", "image")
-                                            values($1,$2,$3,$4,$5) returning "user_id" `,
+                                            values($1,$2,$3,$4,$5,$6) returning "user_id" `,
                                             [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.image])
         newUser.userId = results.rows[0].user_id
         await client.query('COMMIT;')
         return newUser
 
     }catch(e){
-        client && client.query('ROLLBACK;')//if a js error takes place, undo the sql
+        client && client.query('ROLLBACK;')
         if(e.message === 'Role Not Found'){
             throw new UserUserInputError()
         }
@@ -65,10 +65,10 @@ export async function updateUser(updatedUser:User){
                                 where user_id = $2;`,
                                 [updatedUser.email, updatedUser.userId])
         }
-        if(updatedImage.image){
-            await client.query(`update dndcharacter.image set "image" = $1
+        if(updatedUser.image){
+            await client.query(`update dndcharacter.users set "image" = $1
                                 where user_id = $2;`,
-                                [updatedImage.image, updatedUser.userId])
+                                [updatedUser.image, updatedUser.userId])
 
         }
         await client.query('COMMIT;')

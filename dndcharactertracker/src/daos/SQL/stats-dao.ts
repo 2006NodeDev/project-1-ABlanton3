@@ -98,7 +98,7 @@ export async function updateStats(updatedStats:Statistics){
 }
 
 //add stats- needed for a new character
-export async function savenewStats(newStats:Statistics):Promise<Statistics>{ 
+export async function saveNewStats(newStats:Statistics):Promise<Statistics>{ 
     let client:PoolClient
     try{
         client = await connectionPool.connect()

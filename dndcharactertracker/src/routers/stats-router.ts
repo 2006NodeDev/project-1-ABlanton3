@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { authenticationMiddleware } from "src/middleware/authentication-middleware";
-import { getCharacterStats, updateStats, savenewStats } from 'src/daos/SQL/stats-dao';
+import { getCharacterStats, updateStats, saveNewStats } from 'src/daos/SQL/stats-dao';
 import { authorizationMiddleware } from 'src/middleware/authorization-middleware';
 import { Statistics } from 'src/models/Statistics';
 import { UserUserInputError } from 'src/errors/UserUserInputError';
@@ -43,7 +43,7 @@ statsRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
             other:''  
         }
         try{
-            let savedWeapon = await savenewStats(newStats)
+            let savedWeapon = await saveNewStats(newStats)
             res.json(savedWeapon)
         } catch (e){
             next (e)

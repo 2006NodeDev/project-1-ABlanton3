@@ -11,7 +11,7 @@ export const weaponRouter = express.Router()
 weaponRouter.use(authenticationMiddleware)
 
 //get character and weapons
-weaponRouter.get('/characterWeaponId/:id', async( req:Request, res:Response, next:NextFunction)=>{
+weaponRouter.get('/characterId/:id', async( req:Request, res:Response, next:NextFunction)=>{
     let { id } = req.params
     if (isNaN(+id)) {
         next(new Error('Character ID must be a number'))

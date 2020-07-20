@@ -31,6 +31,39 @@ export async function getCharacterByUser(id:number):Promise<Character[]> {
     }
 }
 
+//get character by character id
+export async function getCharacterById(id:number):Promise<Character>{
+    let client: PoolClient
+    try{
+        client = await connectionPool.connect()
+        let results = await client.query(`select "character_id",
+                                        "name",
+                                        "gender",
+                                        "class",
+                                        "race",
+                                        "background",
+                                        "alignment",
+                                        "level",
+                                        "other",
+                                        "user",
+                                        from dndcharacter.characters
+                                        where "character_id" = $1;`,
+                                        [id])
+        if(results.rowCount === 0){
+            throw new Error('Character Not Found')
+        }
+        return CharacterDTOtoCharacterConvertor(results.rows[0])
+    } catch(e){
+        if(e.message === 'Character Not Found'){
+            throw new CharacterNotFoundError()
+        }
+        console.log(e)
+        throw new Error('Unhandled Error Occurred')
+    } finally {
+        client && client.release()
+    }
+}
+
 //add character
 export async function saveOneCharacter(newCharacter:Character):Promise<Character>{ 
     let client:PoolClient
@@ -43,7 +76,7 @@ export async function saveOneCharacter(newCharacter:Character):Promise<Character
         }
         let results = await client.query(`insert into dndcharacter.characters ("name", "gender", "class", "race", "background", "alignment", "level", "other", "user")
                                             values($1,$2,$3,$4,$5,$6,$7,$8) returning "character_id" `,
-                                            [newCharacter.name, newCharacter.gender, newCharacter.class, newCharacter.race, newCharacter.background, newCharacter.alignment, newCharacter.level, newCharacter.other, userId])
+                                            [newCharacter.name, newCharacter.gender, newCharacter.dndClass, newCharacter.race, newCharacter.background, newCharacter.alignment, newCharacter.level, newCharacter.other, userId])
         newCharacter.characterId = results.rows[0].character_id
         await client.query('COMMIT;')
         return newCharacter
@@ -76,10 +109,10 @@ export async function updateCharacter(updatedCharacter:Character){
                                 where character_id = $2;`,
                                 [updatedCharacter.gender, updatedCharacter.characterId])
         }
-        if(updatedCharacter.class){
+        if(updatedCharacter.dndClass){
             await client.query(`update dndcharacter.characters set "class" = $1
                                 where character_id = $2;`,
-                                [updatedCharacter.class, updatedCharacter.characterId])
+                                [updatedCharacter.dndClass, updatedCharacter.characterId])
         }
         if(updatedCharacter.race){
             await client.query(`update dndcharacter.characters set "race" = $1

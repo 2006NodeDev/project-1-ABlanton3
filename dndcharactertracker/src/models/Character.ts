@@ -4,7 +4,7 @@ export class Character{
     characterId: number
     name: string
     gender: string
-    class: string
+    dndClass: string
     race: string
     background: string
     alignment: string

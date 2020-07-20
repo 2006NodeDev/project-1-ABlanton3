@@ -7,7 +7,7 @@ export function CharacterDTOtoCharacterConvertor(cdto:CharacterDTO):Character{
         characterId:cdto.character_id,
         name:cdto.name,
         gender:cdto.gender,
-        class:cdto.class,
+        dndClass:cdto.class,
         race:cdto.race,
         background:cdto.background,
         alignment:cdto.alignment,

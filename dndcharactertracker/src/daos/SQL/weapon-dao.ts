@@ -38,7 +38,7 @@ export async function saveOneWeapon(newWeapon:Weapon):Promise<Weapon>{
         if(userId.rowCount === 0){
             throw new Error('Character Not Found')
         }
-        let results = await client.query(`insert into dndcharacter.characters ("type", "name", "attack_bonus", "damage_dice", "properties", "other", "character")
+        let results = await client.query(`insert into dndcharacter.weapons ("type", "name", "attack_bonus", "damage_dice", "properties", "other", "character")
                                             values($1,$2,$3,$4,$5,$6,$7,$8) returning "character_id" `,
                                             [newWeapon.type, newWeapon.name, newWeapon.attackBonus, newWeapon.damageDice, newWeapon.properties, newWeapon.other, newWeapon.character])
         newWeapon.character = results.rows[0].character_id

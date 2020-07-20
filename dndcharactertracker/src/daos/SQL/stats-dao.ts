@@ -3,6 +3,7 @@ import { connectionPool } from ".";
 import { CharacterNotFoundError } from "src/errors/CharacterNotFoundError";
 import { Statistics } from "src/models/Statistics";
 import { StatsDTOtoStatisticsConvertor } from "src/utils/StatsDTO-to-Statistics-Convertor";
+import { UserUserInputError } from "src/errors/UserUserInputError";
 
 
 //get character + stats
@@ -93,5 +94,33 @@ export async function updateStats(updatedStats:Statistics){
         
     } finally{
         client && client.release()
+    }
+}
+
+//add stats- needed for a new character
+export async function savenewStats(newStats:Statistics):Promise<Statistics>{ 
+    let client:PoolClient
+    try{
+        client = await connectionPool.connect()
+        await client.query('BEGIN;')
+        let userId = await client.query(`select c."character_id" from dndcharactertracker.characters c where c."character" = $1`, [newStats.character])
+        if(userId.rowCount === 0){
+            throw new Error('Character Not Found')
+        }
+        let results = await client.query(`insert into dndcharacter.stats ("character", "hp", "ac", "strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma", "other")
+                                            values($1,$2,$3,$4,$5,$6,$7,$8) returning "character_id" `,
+                                            [newStats.character, newStats.healthPoints, newStats.armorClass, newStats.strength, newStats.dexterity, newStats.intelligence, newStats.wisdom, newStats.charisma, newStats.other])
+        newStats.character = results.rows[0].character_id
+        await client.query('COMMIT;')
+        return newStats
+    }catch(e){
+        client && client.query('ROLLBACK;')
+        if(e.message === 'Character Not Found'){
+            throw new UserUserInputError()
+        }
+        console.log(e)
+        throw new Error('Unhandled Error Occured')
+    }finally{
+        client && client.release();
     }
 }

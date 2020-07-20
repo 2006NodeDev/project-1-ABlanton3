@@ -5,6 +5,9 @@ import { InvalidCredentialsError } from './errors/InvalidCredentialsError'
 import { userRouter } from './routers/user-router'
 import { getUserByUsernameAndPassword } from './daos/SQL/user-dao'
 import { corsFilter } from './middleware/cors-filter'
+import { characterRouter } from './routers/character-router'
+import { weaponRouter } from './routers/weapons-router'
+import { statsRouter } from './routers/stats-router'
 
 
 const app = express()
@@ -17,6 +20,9 @@ app.use(sessionMiddleware)
 
 
 app.use('/users', userRouter)
+app.use('/characters', characterRouter)
+app.use('/weapons', weaponRouter)
+app.use('/stats', statsRouter)
 
 app.get('/health', (req:Request,res:Response)=>{
     res.sendStatus(200)

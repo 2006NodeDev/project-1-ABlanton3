@@ -29,7 +29,7 @@ characterRouter.get('/userId/:id', async( req:Request, res:Response, next:NextFu
 })
 
 //get full character info (weapons + stats), anyone who is logged in can view (useful for DMs and other players in the campaign) .get('/characterID/:id)
-characterRouter.get('/characterID/:id', async (req: Request, res: Response, next: NextFunction) => {
+characterRouter.get('/characterId/:id', async (req: Request, res: Response, next: NextFunction) => {
     let { id } = req.params
     if (isNaN(+id)) {
         res.status(400).send('ID needs to be a number')

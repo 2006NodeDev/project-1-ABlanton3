@@ -4,7 +4,6 @@ import { getCharacterWeapons, saveOneWeapon, updateWeapon } from 'src/daos/SQL/w
 import { authorizationMiddleware } from 'src/middleware/authorization-middleware';
 import { UserUserInputError } from 'src/errors/UserUserInputError';
 import { Weapon } from 'src/models/Weapon';
-import { InvalidCredentialsError } from 'src/errors/InvalidCredentialsError';
 
 
 export const weaponRouter = express.Router()
@@ -52,6 +51,7 @@ weaponRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
         }
     }
 })
+
 //update weapon, need authorization but I need to figure out how I'm going to do that because I don't call for user ID .patch
 weaponRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Request, res:Response, next:NextFunction)=>{
 

@@ -5,8 +5,6 @@ import {toast} from 'react-toastify'
 import { dndcharactertrackerUpdateUser } from '../../remote/dndcharactertracker-api/dndcharactertracker-update-user'
 
 
-
-
 export const UpdateUserComponent: FunctionComponent<any> = (props) => {
 
     let [firstName, changeFirstName] = useState('')
@@ -91,7 +89,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
 
     return (
         <div>
-            <form onSubmit={updateUser}>
+            <form autoComplete="off" onSubmit={updateUser}  noValidate>
                 <TextField id="standard-basic" label="First Name" value={firstName || ''} onChange={updateFirstName} />
                 <TextField id="standard-basic" label="Last Name" value={lastName || ''} onChange={updateLastName} />
                 <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
@@ -101,7 +99,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 <label htmlFor='file'>Profile Pic</label>
                 <input type='file' name='file' accept='image/*' onChange={updateImage} />
                 <img src={image} alt="user uploaded"/>
-                <Button variant="contained" type='submit'>Submit</Button>
+                <Button variant="contained" type='submit' >Submit</Button>
             </form>
         </div>
     )

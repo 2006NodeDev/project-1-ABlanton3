@@ -62,7 +62,7 @@ export const UserDisplayComponent: FunctionComponent<IUserDisplayProps> = (props
       </Card>
       <Button><Link to='/editUser'>Edit</Link></Button>
       <Route path="/editUser">
-        <UpdateUserComponent />
+        <UpdateUserComponent/>
       </Route>
     </div>
   )

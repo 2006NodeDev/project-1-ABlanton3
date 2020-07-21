@@ -2,11 +2,13 @@ import React, { FunctionComponent, SyntheticEvent, useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import {User} from '../../models/User'
 import {toast} from 'react-toastify'
-import { dndcharacterUpdateUser } from '../../remote/dndcharactertracker-api/dndcharactertracker-update-character'
+import { dndcharactertrackerUpdateUser } from '../../remote/dndcharactertracker-api/dndcharactertracker-update-user'
 
 
 
-export const UpdateUserComponent: FunctionComponent<any> = () => {
+
+export const UpdateUserComponent: FunctionComponent<any> = (props) => {
+
     let [firstName, changeFirstName] = useState('')
     let [lastName, changeLastName] = useState('')
     let [username, changeUsername] = useState('')
@@ -57,7 +59,8 @@ export const UpdateUserComponent: FunctionComponent<any> = () => {
         e.preventDefault()
         if(password !== confirmPassword){
             toast.error('Password Do Not Match')
-        }else {
+        }else if (!username){
+            username= props.user.username
             let updatedUser:User = {
                 userId:0,
                 username,
@@ -68,7 +71,20 @@ export const UpdateUserComponent: FunctionComponent<any> = () => {
                 role: '',
                 image
             }
-            let res = await dndcharacterUpdateUser()
+            let res = await dndcharactertrackerUpdateUser(updatedUser)
+        }else{
+            let updatedUser:User = {
+                userId:0,
+                username,
+                password,
+                firstName,
+                lastName,
+                email,
+                role: '',
+                image
+            }
+            let res = await dndcharactertrackerUpdateUser(updatedUser)
+
         }   
     }
 

@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { authenticationMiddleware } from "src/middleware/authentication-middleware";
-import { getCharacterStats, updateStats, saveNewStats } from 'src/daos/SQL/stats-dao';
-import { authorizationMiddleware } from 'src/middleware/authorization-middleware';
-import { Statistics } from 'src/models/Statistics';
-import { UserUserInputError } from 'src/errors/UserUserInputError';
+import { authenticationMiddleware } from "../middleware/authentication-middleware";
+import { getCharacterStats, updateStats, saveNewStats } from '../daos/SQL/stats-dao';
+import { authorizationMiddleware } from '../middleware/authorization-middleware';
+import { Statistics } from '../models/Statistics';
+import { UserUserInputError } from '../errors/UserUserInputError';
 
 export const statsRouter = express.Router()
 

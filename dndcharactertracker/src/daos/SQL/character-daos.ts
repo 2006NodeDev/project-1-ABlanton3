@@ -4,7 +4,7 @@ import { connectionPool } from ".";
 import { CharacterDTOtoCharacterConvertor } from "../../utils/CharacterDTO-to-Character-Convertor";
 import { UserNotFoundError } from "../../errors/UserNotFoundError";
 import {UserUserInputError} from "../../errors/UserUserInputError";
-import { CharacterNotFoundError } from "src/errors/CharacterNotFoundError";
+import { CharacterNotFoundError } from "../../errors/CharacterNotFoundError";
 
 
 //all characters by user

@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { getCharacterByUser, getCharacterById, getFullCharacterInfo, updateCharacter } from '../daos/SQL/character-daos'
-import { authenticationMiddleware } from 'src/middleware/authentication-middleware'
-import { authorizationMiddleware } from 'src/middleware/authorization-middleware'
-import { Character } from 'src/models/Character'
-import { InvalidCredentialsError } from 'src/errors/InvalidCredentialsError'
-import { UserUserInputError } from 'src/errors/UserUserInputError'
-import {saveOneCharacter} from 'src/daos/SQL/character-daos'
-import { User } from 'src/models/User'
+import { authenticationMiddleware } from '../middleware/authentication-middleware'
+import { authorizationMiddleware } from '../middleware/authorization-middleware'
+import { Character } from '../models/Character'
+import { InvalidCredentialsError } from '../errors/InvalidCredentialsError'
+import { UserUserInputError } from '../errors/UserUserInputError'
+import {saveOneCharacter} from '../daos/SQL/character-daos'
+import { User } from '../models/User'
 
 
 export const characterRouter = express.Router()

@@ -2,11 +2,11 @@ import React, { FunctionComponent, SyntheticEvent, useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import {User} from '../../models/User'
 import {toast} from 'react-toastify'
-import { dndcharactertrackerSaveOneUser} from '../../remote/dndcharactertracker-api/dndcharactertracker-save-one-user'
+import { dndcharacterUpdateUser } from '../../remote/dndcharactertracker-api/dndcharactertracker-update-character'
 
 
 
-export const SaveOneUserComponent: FunctionComponent<any> = () => {
+export const UpdateUserComponent: FunctionComponent<any> = () => {
     let [firstName, changeFirstName] = useState('')
     let [lastName, changeLastName] = useState('')
     let [username, changeUsername] = useState('')
@@ -53,12 +53,12 @@ export const SaveOneUserComponent: FunctionComponent<any> = () => {
 
 
 
-    const submitUser = async (e: SyntheticEvent) => {
+    const updateUser = async (e: SyntheticEvent) => {
         e.preventDefault()
         if(password !== confirmPassword){
             toast.error('Password Do Not Match')
         }else {
-            let newUser:User = {
+            let updatedUser:User = {
                 userId:0,
                 username,
                 password,
@@ -68,21 +68,20 @@ export const SaveOneUserComponent: FunctionComponent<any> = () => {
                 role: '',
                 image
             }
-    
-            let res = await dndcharactertrackerSaveOneUser(newUser)
+            let res = await dndcharacterUpdateUser()
         }   
     }
 
 
     return (
         <div>
-            <form onSubmit={submitUser}>
+            <form onSubmit={updateUser}>
                 <TextField id="standard-basic" label="First Name" value={firstName || ''} onChange={updateFirstName} />
                 <TextField id="standard-basic" label="Last Name" value={lastName || ''} onChange={updateLastName} />
                 <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
-                <TextField id="standard-basic" type='password' label="Password" value={password} onChange={updatePassword}/>
-                <TextField id="standard-basic" type='password' label="Confirm password" value={confirmPassword} onChange={updateConfirmPassword}/>
-                <TextField id="standard-basic" type='email' label="Email" value={email} onChange={updateEmail}/>
+                <TextField id="standard-basic" type='password' label="Password" value={password || ''} onChange={updatePassword}/>
+                <TextField id="standard-basic" type='password' label="Confirm password" value={confirmPassword || ''} onChange={updateConfirmPassword}/>
+                <TextField id="standard-basic" type='email' label="Email" value={email || ''} onChange={updateEmail}/>
                 <label htmlFor='file'>Profile Pic</label>
                 <input type='file' name='file' accept='image/*' onChange={updateImage} />
                 <img src={image} alt="user uploaded"/>
@@ -91,3 +90,5 @@ export const SaveOneUserComponent: FunctionComponent<any> = () => {
         </div>
     )
 }
+
+

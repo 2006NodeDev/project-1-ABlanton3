@@ -1,9 +1,9 @@
-import { Weapon } from "src/models/Weapon"
+import { Weapon } from "../../models/Weapon"
 import { connectionPool } from "."
 import { PoolClient } from "pg";
-import { WeaponsDTOtoWeaponsConvertor } from "src/utils/WeaponsDTO-to-Weapons-Convertor";
-import { CharacterNotFoundError } from "src/errors/CharacterNotFoundError";
-import { UserUserInputError } from "src/errors/UserUserInputError";
+import { WeaponsDTOtoWeaponsConvertor } from "../../utils/WeaponsDTO-to-Weapons-Convertor";
+import { CharacterNotFoundError } from "../../errors/CharacterNotFoundError";
+import { UserUserInputError } from "../../errors/UserUserInputError";
 
 
 //get character + weapons

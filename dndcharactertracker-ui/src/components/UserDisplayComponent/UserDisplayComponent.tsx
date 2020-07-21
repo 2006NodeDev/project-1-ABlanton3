@@ -3,10 +3,13 @@ import { User } from '../../models/User'
 import Typography from '@material-ui/core/Typography'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
-import { CardContent, Card} from '@material-ui/core';
+import { CardContent, Card } from '@material-ui/core';
+import { Link, Route } from 'react-router-dom';
+import { UpdateUserComponent } from '../UpdateUserComponent/UpdateUserComponent';
 
-interface IUserDisplayProps{
-    user:User
+
+interface IUserDisplayProps {
+  user: User
 }
 
 
@@ -22,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
         height: theme.spacing(17),
       },
     },
-    card:{
-        backgroundColor:'grey' 
+    card: {
+      backgroundColor: 'grey'
     }
   }),
 );
@@ -31,33 +34,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-export const UserDisplayComponent:FunctionComponent<IUserDisplayProps> = (props)=>{
-    let classes = useStyles()
-    return(
-      <div>
-        <Card className={classes.root}>
-            <CardContent>
-                <Typography variant='body1'>
-                   Username : {props.user.username}
-                </Typography>
-                <Typography variant='body1'>
-                   First Name : {props.user.firstName}
-                </Typography>
-                <Typography variant='body1'>
-                   Last Name : {props.user.lastName}
-                </Typography>
-                <Typography variant='body1'>
-                   Email : {props.user.email}
-                </Typography>
-                <Typography variant='body1'>
-                   Role : {props.user.role}
-                </Typography>
-                <Typography variant='body1'>
-                   Image : {props.user.image}
-                </Typography>
-                <Button variant='contained' color='inherit'>Edit</Button>
-            </CardContent>
-        </Card>
-      </div>
-    )
+export const UserDisplayComponent: FunctionComponent<IUserDisplayProps> = (props) => {
+  let classes = useStyles()
+  return (
+    <div>
+      <Card className={classes.root}>
+        <CardContent>
+          <Typography variant='body1'>
+            Username : {props.user.username}
+          </Typography>
+          <Typography variant='body1'>
+            First Name : {props.user.firstName}
+          </Typography>
+          <Typography variant='body1'>
+            Last Name : {props.user.lastName}
+          </Typography>
+          <Typography variant='body1'>
+            Email : {props.user.email}
+          </Typography>
+          <Typography variant='body1'>
+            Role : {props.user.role}
+          </Typography>
+          <Typography variant='body1'>
+            Image : {props.user.image}
+          </Typography>
+        </CardContent>
+      </Card>
+      <Button><Link to='/editUser'>Edit</Link></Button>
+      <Route path="/editUser">
+        <UpdateUserComponent />
+      </Route>
+    </div>
+  )
 }

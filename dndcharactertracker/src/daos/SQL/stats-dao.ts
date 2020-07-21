@@ -1,9 +1,9 @@
 import { PoolClient } from "pg";
 import { connectionPool } from ".";
-import { CharacterNotFoundError } from "src/errors/CharacterNotFoundError";
-import { Statistics } from "src/models/Statistics";
-import { StatsDTOtoStatisticsConvertor } from "src/utils/StatsDTO-to-Statistics-Convertor";
-import { UserUserInputError } from "src/errors/UserUserInputError";
+import { CharacterNotFoundError } from "../../errors/CharacterNotFoundError";
+import { Statistics } from "../../models/Statistics";
+import { StatsDTOtoStatisticsConvertor } from "../../utils/StatsDTO-to-Statistics-Convertor";
+import { UserUserInputError } from "../../errors/UserUserInputError";
 
 
 //get character + stats

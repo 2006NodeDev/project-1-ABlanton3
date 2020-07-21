@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { authenticationMiddleware } from "src/middleware/authentication-middleware";
-import { getCharacterWeapons, saveOneWeapon, updateWeapon } from 'src/daos/SQL/weapon-dao';
-import { authorizationMiddleware } from 'src/middleware/authorization-middleware';
-import { UserUserInputError } from 'src/errors/UserUserInputError';
-import { Weapon } from 'src/models/Weapon';
+import { authenticationMiddleware } from "../middleware/authentication-middleware";
+import { getCharacterWeapons, saveOneWeapon, updateWeapon } from '../daos/SQL/weapon-dao';
+import { authorizationMiddleware } from '../middleware/authorization-middleware';
+import { UserUserInputError } from '../errors/UserUserInputError';
+import { Weapon } from '../models/Weapon';
 
 
 export const weaponRouter = express.Router()

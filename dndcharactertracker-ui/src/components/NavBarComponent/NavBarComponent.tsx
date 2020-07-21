@@ -4,14 +4,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { createStyles, makeStyles, Theme, createMuiTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import {Link} from 'react-router-dom'
-import { red } from '@material-ui/core/colors';
 
 
-//this is an example of Jss - a more js way of doing css
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -22,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         title: {
             flexGrow: 1,
+            color: '#000000'
         },
     }),
 );
@@ -52,7 +52,7 @@ export const NavBarComponent: FunctionComponent<any> = (props) => {
 
     return (
         <nav>
-            <AppBar position="static">
+            <AppBar position="static" style={{background: '#8B0000'}}>
                 <Toolbar>
                     <IconButton onClick={handleClick} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />

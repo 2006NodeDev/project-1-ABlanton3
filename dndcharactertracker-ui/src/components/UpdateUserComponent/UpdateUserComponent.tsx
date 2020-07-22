@@ -1,18 +1,22 @@
 import React, { FunctionComponent, SyntheticEvent, useState } from 'react'
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, Container, CssBaseline, Typography, Grid, withStyles, makeStyles } from '@material-ui/core'
 import {User} from '../../models/User'
 import {toast} from 'react-toastify'
 import { dndcharactertrackerUpdateUser } from '../../remote/dndcharactertracker-api/dndcharactertracker-update-user'
+import { useParams } from 'react-router'
+
 
 
 export const UpdateUserComponent: FunctionComponent<any> = (props) => {
-
-    let [firstName, changeFirstName] = useState('')
-    let [lastName, changeLastName] = useState('')
-    let [username, changeUsername] = useState('')
-    let [password, changePassword] = useState('')
-    let [confirmPassword, changeConfirmPassword] = useState('')
-    let [email, changeEmail] = useState('')
+    const classes = useStyles();
+    let {userId} = useParams()
+    
+    let [firstName, changeFirstName] = useState("")
+    let [lastName, changeLastName] = useState("")
+    let [username, changeUsername] = useState("")
+    let [password, changePassword] = useState("")
+    let [confirmPassword, changeConfirmPassword] = useState("")
+    let [email, changeEmail] = useState("")
     let [image, changeImage] = useState(undefined)
 
 
@@ -60,7 +64,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
         }else if (!username){
             username= props.user.username
             let updatedUser:User = {
-                userId:0,
+                userId,
                 username,
                 password,
                 firstName,
@@ -72,7 +76,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
             let res = await dndcharactertrackerUpdateUser(updatedUser)
         }else{
             let updatedUser:User = {
-                userId:0,
+                userId,
                 username,
                 password,
                 firstName,
@@ -83,26 +87,147 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
             }
             let res = await dndcharactertrackerUpdateUser(updatedUser)
 
+
         }   
     }
 
 
     return (
-        <div>
-            <form autoComplete="off" onSubmit={updateUser}  noValidate>
-                <TextField id="standard-basic" label="First Name" value={firstName || ''} onChange={updateFirstName} />
-                <TextField id="standard-basic" label="Last Name" value={lastName || ''} onChange={updateLastName} />
-                <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
-                <TextField id="standard-basic" type='password' label="Password" value={password || ''} onChange={updatePassword}/>
-                <TextField id="standard-basic" type='password' label="Confirm password" value={confirmPassword || ''} onChange={updateConfirmPassword}/>
-                <TextField id="standard-basic" type='email' label="Email" value={email || ''} onChange={updateEmail}/>
-                <label htmlFor='file'>Profile Pic</label>
-                <input type='file' name='file' accept='image/*' onChange={updateImage} />
-                <img src={image} alt="user uploaded"/>
-                <Button variant="contained" type='submit' >Submit</Button>
-            </form>
+        <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Update User Profile
+          </Typography>
+          <form autoComplete="off" onSubmit={updateUser} className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="username"
+                  label="New Username"
+                  name="username"
+                  value={username}
+                  onChange={updateUsername}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="New Password"
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={updatePassword}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="confirm-password"
+                  label="Confirm New Password"
+                  type="password"
+                  id="confirm-password"
+                  value={confirmPassword}
+                  onChange={updateConfirmPassword}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Change Email"
+                  name="email"
+                  value={email}
+                  onChange={updateEmail}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="firstName"
+                  label="Change First Name"
+                  name="firstName"
+                  value={firstName}
+                  onChange={updateFirstName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="lastName"
+                  label="Change Last Name"
+                  name="lastName"
+                  value={lastName}
+                  onChange={updateLastName}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <label htmlFor="file">Change Profile Picture</label> <br/>
+                <input type="file" name="file" accept="image/*" onChange={updateImage} />
+                <img src={image} width="100%"/>
+              </Grid>
+              <Grid item xs={12}>
+                <CustomButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                > Update
+                </CustomButton>
+              </Grid>
+            </Grid>            
+          </form>
         </div>
+      </Container>
     )
 }
+const CustomButton = withStyles((theme) => ({
+  root: {
+      color: theme.palette.getContrastText('#ff3333'),
+      backgroundColor: "#8B0000",
+      '&:hover': {
+        backgroundColor: '#8B0000',
+      },
+  },
+}))(Button);
 
+//styles at the bottom because closer to html return
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(3),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+      backgroundColor: '#ff3333',
+      color: 'white',
+      //background color?
+      fontFamily: "Bookman Old Style",
+      fontSize: 16
+    },
+    media: {
 
+    }
+}));

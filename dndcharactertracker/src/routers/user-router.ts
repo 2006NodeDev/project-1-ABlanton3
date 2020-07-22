@@ -3,9 +3,9 @@ import {authenticationMiddleware} from '../middleware/authentication-middleware'
 import { UserUserInputError } from '../errors/UserUserInputError'
 import { User } from '../models/User'
 import { Role } from '../models/Role'
-import { saveOneUser, getUserById, updateUser } from '../daos/SQL/user-dao'
 import { authorizationMiddleware } from '../middleware/authorization-middleware'
 import { InvalidCredentialsError } from '../errors/InvalidCredentialsError'
+import { updateUserService, getUserByIDService, saveOneUserService } from '../services/user-service'
 
 
 export const userRouter = express.Router()
@@ -30,7 +30,7 @@ userRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
             image:''
         }
         try{
-            let savedUser = await saveOneUser(newUser)
+            let savedUser = await saveOneUserService(newUser)
             res.json(savedUser)
         } catch (e){
             next (e)
@@ -49,7 +49,7 @@ userRouter.get('/:id', authorizationMiddleware(['admin', 'user']), async (req: R
         next(new InvalidCredentialsError)
     } else{
         try {
-            let user = await getUserById(+id)
+            let user = await getUserByIDService(+id)
             res.json(user)
         } catch (e) {
             next(e)
@@ -59,7 +59,7 @@ userRouter.get('/:id', authorizationMiddleware(['admin', 'user']), async (req: R
 })
 
 //update user
-userRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Request, res:Response, next:NextFunction)=>{
+userRouter.patch('/', async (req: Request, res:Response, next:NextFunction)=>{
 
     let { userId,
         username,
@@ -95,7 +95,7 @@ userRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Req
         updatedUser.email = email || undefined
         updatedUser.image = image || undefined
         try {
-            let result = await updateUser(updatedUser)
+            let result = await updateUserService(updatedUser)
             res.json(result)
         } catch (e) {
             next(e)

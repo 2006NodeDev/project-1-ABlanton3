@@ -78,14 +78,22 @@ export const SaveOneUserComponent: FunctionComponent<any> = () => {
         <div>
             <form onSubmit={submitUser}>
                 <TextField id="standard-basic" label="First Name" value={firstName || ''} onChange={updateFirstName} />
+                <br></br>
                 <TextField id="standard-basic" label="Last Name" value={lastName || ''} onChange={updateLastName} />
+                <br></br>
                 <TextField id="standard-basic" label="Username" value={username || ''} onChange={updateUsername} />
+                <br></br>
                 <TextField id="standard-basic" type='password' label="Password" value={password} onChange={updatePassword}/>
+                <br></br>
                 <TextField id="standard-basic" type='password' label="Confirm password" value={confirmPassword} onChange={updateConfirmPassword}/>
+                <br></br>
                 <TextField id="standard-basic" type='email' label="Email" value={email} onChange={updateEmail}/>
+                <br></br>
                 <label htmlFor='file'>Profile Pic</label>
                 <input type='file' name='file' accept='image/*' onChange={updateImage} />
+                <br></br>
                 <img src={image} alt="user uploaded"/>
+                <br></br>
                 <Button variant="contained" type='submit'>Submit</Button>
             </form>
         </div>

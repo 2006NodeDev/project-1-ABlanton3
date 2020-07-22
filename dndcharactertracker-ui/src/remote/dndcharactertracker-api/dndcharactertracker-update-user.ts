@@ -5,7 +5,7 @@ import { User } from "../../models/User";
 
 export const dndcharactertrackerUpdateUser = async (updatedUser:User) =>{
     try{
-        let response = await dndcharactertrackerClient.post('/', updatedUser)
+        let response = await dndcharactertrackerClient.patch('/users', updatedUser)
         console.log(response);
         return response.data
     }catch(e){

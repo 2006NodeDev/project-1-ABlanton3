@@ -41,7 +41,7 @@ export async function updateUser(updatedUser:User){
         client.query('begin');
 
         if(updatedUser.username){
-            await client.query(`update dndcharacter.users set "username = $1
+            await client.query(`update dndcharacter.users set "username" = $1
                                     where user_id = $2;`,
                                     [updatedUser.username, updatedUser.userId])
         }
@@ -72,7 +72,7 @@ export async function updateUser(updatedUser:User){
 
         }
         await client.query('COMMIT;')
-        return updatedUser
+        return getUserById(updatedUser.userId)
     }catch (e) {
         console.log(e);
         throw new Error ('Unhandled Error')

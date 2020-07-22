@@ -14,7 +14,9 @@
   "author": "Amanda Blanton",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/pubsub": "^2.3.0",
     "@google-cloud/storage": "^5.1.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "1.17.1",
     "pg": "8.3.0"

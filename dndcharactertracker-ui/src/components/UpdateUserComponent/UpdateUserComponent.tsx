@@ -102,7 +102,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
           <form autoComplete="off" onSubmit={updateUser} className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   margin="normal"
                   fullWidth
@@ -114,7 +114,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   margin="normal"
                   fullWidth
@@ -127,7 +127,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   margin="normal"
                   fullWidth
@@ -140,7 +140,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   fullWidth
                   id="email"
@@ -151,7 +151,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   fullWidth
                   id="firstName"
@@ -162,7 +162,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField autoComplete="off"
                   variant="outlined"
                   fullWidth
                   id="lastName"

@@ -8,7 +8,8 @@ import { corsFilter } from './middleware/cors-filter'
 import { characterRouter } from './routers/character-router'
 import { weaponRouter } from './routers/weapons-router'
 import { statsRouter } from './routers/stats-router'
-
+import './messaging/index'
+import './event-listeners/new-user'
 
 const app = express()
 

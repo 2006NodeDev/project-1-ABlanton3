@@ -1,5 +1,3 @@
-//all of the event listeners for the new user event
-
 import { expressEventEmitter, customExpressEvents } from ".";
 import { User } from "../models/User";
 import { userTopic } from "../messaging";
@@ -16,11 +14,6 @@ expressEventEmitter.on(customExpressEvents.NEW_USER, (newUser:User)=>{
             console.log(e)
         }
     })
-})
-
-
-expressEventEmitter.on(customExpressEvents.NEW_USER, (newUser:User)=>{
-
 })
 
 

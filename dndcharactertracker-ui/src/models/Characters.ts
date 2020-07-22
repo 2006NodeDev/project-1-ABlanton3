@@ -2,7 +2,7 @@
 
 export interface Character{
     characterId: number
-    name: string
+    characterName: string
     gender: string
     dndClass: string
     race: string

@@ -70,13 +70,13 @@ export async function saveOneCharacter(newCharacter:Character):Promise<Character
     try{
         client = await connectionPool.connect()
         await client.query('BEGIN;')
-        let userId = await client.query(`select u."user_id" from dndcharactertracker.users u where u."user" = $1`, [newCharacter.user])
+        /*let userId = await client.query(`select u."user_id" from dndcharacter.users u where u."user" = $1`, [newCharacter.user])
         if(userId.rowCount === 0){
             throw new Error('User Not Found')
-        }
+        }*/
         let results = await client.query(`insert into dndcharacter.characters ("name", "gender", "class", "race", "background", "alignment", "level", "other", "user")
-                                            values($1,$2,$3,$4,$5,$6,$7,$8) returning "character_id" `,
-                                            [newCharacter.name, newCharacter.gender, newCharacter.dndClass, newCharacter.race, newCharacter.background, newCharacter.alignment, newCharacter.level, newCharacter.other, userId])
+                                            values($1,$2,$3,$4,$5,$6,$7,$8,$9) returning "character_id" `,
+                                            [newCharacter.characterName, newCharacter.gender, newCharacter.dndClass, newCharacter.race, newCharacter.background, newCharacter.alignment, newCharacter.level, newCharacter.other, newCharacter.user])
         newCharacter.characterId = results.rows[0].character_id
         await client.query('COMMIT;')
         return newCharacter
@@ -99,10 +99,10 @@ export async function updateCharacter(updatedCharacter:Character){
         client = await connectionPool.connect();
         client.query('begin');
 
-        if(updatedCharacter.name){
+        if(updatedCharacter.characterName){
             await client.query(`update dndcharacter.characters set "name" = $1
                                     where character_id = $2;`,
-                                    [updatedCharacter.name, updatedCharacter.characterId])
+                                    [updatedCharacter.characterName, updatedCharacter.characterId])
         }
         if(updatedCharacter.gender){
             await client.query(`update dndcharacter.characters set "gender" = $1

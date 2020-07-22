@@ -11,11 +11,10 @@ export const UpdateCharacterComponent: FunctionComponent<any> = (props) => {
     const classes = useStyles();
     let {characterId} = useParams()
     
-    let [Name, changeName] = useState("")
+    let [characterName, changeCharacterName] = useState("")
     let [gender, changeGender] = useState("")
     let [dndClass, changeDndClass] = useState("")
     let [race, changeRace] = useState("")
-    let [confirmRace, changeConfirmRace] = useState("")
     let [background, changeBackground] = useState("")
     let [alignment, changeAlignment] = useState("")
     let [level, changeLevel] = useState(undefined)
@@ -23,9 +22,9 @@ export const UpdateCharacterComponent: FunctionComponent<any> = (props) => {
     let [user, changeUser] = useState(undefined)
 
 
-    const updateName = (e:any) => {
+    const updateCharacterName = (e:any) => {
         e.preventDefault()
-        changeName(e.currentTarget.value)
+        changeCharacterName(e.currentTarget.value)
     }
     const updateGender = (e:any) => {
         e.preventDefault()
@@ -66,7 +65,7 @@ export const UpdateCharacterComponent: FunctionComponent<any> = (props) => {
         }else{
             let updatedCharacter:Character = {
                 characterId,
-                name,
+                characterName,
                 gender,
                 dndClass,
                 race,
@@ -98,8 +97,8 @@ export const UpdateCharacterComponent: FunctionComponent<any> = (props) => {
                   id="name"
                   label="New Name"
                   name="name"
-                  value={name}
-                  onChange={updateName}
+                  value={characterName}
+                  onChange={updateCharacterName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

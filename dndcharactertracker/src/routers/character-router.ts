@@ -62,13 +62,13 @@ characterRouter.get('/:id', async (req: Request, res: Response, next: NextFuncti
 
 //add character, authorization required
 characterRouter.post('/', async (req: Request, res: Response, next:NextFunction)=>{
-    let {name, gender, dndClass, race, background, alignment, level, other } = req.body
-    if (!name || !gender || !dndClass || !race || !background || !alignment || !level || !other){
+    let {characterName, gender, dndClass, race, background, alignment, level, other } = req.body
+    if (!characterName || !gender || !dndClass || !race || !background || !alignment || !level || !other){
         next(new UserUserInputError)
     } else {
         let newCharacter: Character ={
             characterId: 0,
-            name,
+            characterName,
             gender,
             dndClass,
             race,
@@ -92,7 +92,7 @@ characterRouter.post('/', async (req: Request, res: Response, next:NextFunction)
 characterRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req: Request, res:Response, next:NextFunction)=>{
 
     let { characterId,
-        name,
+        characterName,
         gender,
         dndClass,
         race,
@@ -112,7 +112,7 @@ characterRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req
     else {
         let updatedCharacter:Character = {
             characterId,
-            name,
+            characterName,
             gender,
             dndClass,
             race,
@@ -122,7 +122,7 @@ characterRouter.patch('/',authorizationMiddleware(['admin', 'user']), async (req
             other,
             user
         }
-        updatedCharacter.name = name || undefined
+        updatedCharacter.characterName = characterName || undefined
         updatedCharacter.gender = gender || undefined
         updatedCharacter.dndClass = dndClass || undefined
         updatedCharacter.race = race || undefined

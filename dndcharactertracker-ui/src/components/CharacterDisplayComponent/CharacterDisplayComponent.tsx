@@ -41,7 +41,7 @@ export const CharacterDisplayComponent:FunctionComponent<ICharacterDisplayProps>
         <Card className={classes.root}>
             <CardContent>
                 <Typography variant='body1'>
-                   Name : {props.character.name}
+                   Name : {props.character.characterName}
                 </Typography>
                 <Typography variant='body1'>
                    Gender : {props.character.gender}

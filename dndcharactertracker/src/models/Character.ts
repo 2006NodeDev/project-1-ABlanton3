@@ -2,7 +2,7 @@ import { User } from "./User"
 
 export class Character{
     characterId: number
-    name: string
+    characterName: string
     gender: string
     dndClass: string
     race: string

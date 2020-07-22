@@ -6,7 +6,7 @@ import { dndcharactertrackerSaveOneCharacter } from '../../remote/dndcharactertr
 
 
 export const SaveOneCharacterComponent: FunctionComponent<any> = () => {
-    let [name, changeName] = useState('')
+    let [characterName, changeCharacterName] = useState('')
     let [gender, changeGender] = useState('')
     let [dndClass, changeDndClass] = useState('')
     let [race, changeRace] = useState('')
@@ -17,9 +17,9 @@ export const SaveOneCharacterComponent: FunctionComponent<any> = () => {
     let [user, changeUser] = useState(0)
 
 
-    const updateName = (e:any) => {
+    const updateCharacterName = (e:any) => {
         e.preventDefault()
-        changeName(e.currentTarget.value)
+        changeCharacterName(e.currentTarget.value)
     }
     const updateGender = (e:any) => {
         e.preventDefault()
@@ -59,7 +59,7 @@ export const SaveOneCharacterComponent: FunctionComponent<any> = () => {
     const submitCharacter = async (e: SyntheticEvent) => {
             let newCharacter:Character = {
                 characterId:0,
-                name,
+                characterName,
                 gender,
                 dndClass,
                 race,
@@ -77,7 +77,7 @@ export const SaveOneCharacterComponent: FunctionComponent<any> = () => {
     return (
         <div>
             <form onSubmit={submitCharacter}>
-                <TextField id="standard-basic" label="Character Name" value={name || ''} onChange={updateName} />
+                <TextField id="standard-basic" label="Character Name" value={characterName || ''} onChange={updateCharacterName} />
                 <TextField id="standard-basic" label="Gender" value={gender || ''} onChange={updateGender} />
                 <TextField id="standard-basic" label="Class" value={dndClass || ''} onChange={updateDndClass} />
                 <TextField id="standard-basic" label="Race" value={race} onChange={updateRace}/>

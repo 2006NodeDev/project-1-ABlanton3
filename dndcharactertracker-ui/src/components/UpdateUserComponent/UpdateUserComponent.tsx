@@ -223,8 +223,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
       backgroundColor: '#ff3333',
       color: 'white',
-      //background color?
-      fontFamily: "Bookman Old Style",
       fontSize: 16
     },
     media: {

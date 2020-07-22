@@ -26,6 +26,9 @@ export default function App() {
             <li>
               <Link to="/characterById">Search for a Character With Character ID</Link>
             </li>
+            <li>
+              <Link to="/characterByUser">Search for a User's Characters</Link>
+            </li>
           </ul>
         </nav>
 

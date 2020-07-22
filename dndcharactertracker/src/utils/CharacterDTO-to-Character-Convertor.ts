@@ -5,7 +5,7 @@ import { Character } from "../models/Character"
 export function CharacterDTOtoCharacterConvertor(cdto:CharacterDTO):Character{
     return{
         characterId:cdto.character_id,
-        name:cdto.name,
+        characterName:cdto.name,
         gender:cdto.gender,
         dndClass:cdto.class,
         race:cdto.race,

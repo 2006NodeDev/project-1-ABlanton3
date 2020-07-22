@@ -7,7 +7,7 @@ import { CharacterDisplayComponent } from '../CharacterDisplayComponent/Characte
 export const AllUsersCharactersSimpleComponent:FunctionComponent<any> = (props) => {
 
 
-    let [allCharacters, changeAllCharacters] = useState<Character[]>([])
+    let [allCharacters, changeAllCharacters] = useState([])
     useEffect(()=>{
 
         const getAllCharactersSimpleComponent = async ()=>{
@@ -20,13 +20,10 @@ export const AllUsersCharactersSimpleComponent:FunctionComponent<any> = (props) 
     })
 
     let characterDisplays = allCharacters.map((characters)=>{
-        //whwenever you make a bunch of components like this
-        // react agressively suggests you give them unqie keys so it can tell them apart
-        return <CharacterDisplayComponent key={'character-key-' + characters.characterId} character={characters}/>
+        return <CharacterDisplayComponent character={characters}/>
     })
 
     return(
-        //we should turn this into a grid to make it look nicer
         <div>
             {characterDisplays}
         </div>

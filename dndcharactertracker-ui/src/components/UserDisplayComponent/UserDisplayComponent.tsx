@@ -40,6 +40,9 @@ export const UserDisplayComponent: FunctionComponent<IUserDisplayProps> = (props
     <div>
       <Card className={classes.root}>
         <CardContent>
+        <Typography variant='body1'>
+            User ID : {props.user.userId}
+          </Typography>
           <Typography variant='body1'>
             Username : {props.user.username}
           </Typography>

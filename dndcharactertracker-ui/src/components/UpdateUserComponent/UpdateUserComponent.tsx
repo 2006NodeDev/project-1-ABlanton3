@@ -11,38 +11,55 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
     const classes = useStyles();
     let {userId} = useParams()
     
+
     let [firstName, changeFirstName] = useState("")
     let [lastName, changeLastName] = useState("")
     let [username, changeUsername] = useState("")
     let [password, changePassword] = useState("")
-    let [confirmPassword, changeConfirmPassword] = useState("")
     let [email, changeEmail] = useState("")
     let [image, changeImage] = useState(undefined)
 
 
+
     const updateFirstName = (e:any) => {
         e.preventDefault()
+        if (e.currentTarget.value !== undefined){
         changeFirstName(e.currentTarget.value)
+        } else{
+          changeFirstName(e.currentTarget.firstName)
+        }
     }
     const updateLastName = (e:any) => {
         e.preventDefault()
+        if (e.currentTarget.value !== undefined){
         changeLastName(e.currentTarget.value)
+        } else{
+          changeLastName(e.currentTarget.lastName)
+        } 
     }
     const updateUsername = (e:any) => {
         e.preventDefault()
+        if (e.currentTarget.value !== undefined){
         changeUsername(e.currentTarget.value)
+        } else{
+          changeUsername(e.currentTarget.username)
+        }
     }
     const updatePassword = (e:any) => {
         e.preventDefault()
+        if (e.currentTarget.value !== undefined){
         changePassword(e.currentTarget.value)
-    }
-    const updateConfirmPassword = (e:any) => {
-        e.preventDefault()
-        changeConfirmPassword(e.currentTarget.value)
+        } else{
+          changePassword(e.currentTarget.password)
+        }
     }
     const updateEmail = (e:any) => {
         e.preventDefault()
+        if (e.currentTarget.value !== undefined){
         changeEmail(e.currentTarget.value)
+        } else{
+          changeEmail(e.currentTarget.email)
+        }
     }
 
     const updateImage = (e:any) => {
@@ -59,12 +76,8 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
 
     const updateUser = async (e: SyntheticEvent) => {
         e.preventDefault()
-        if(password !== confirmPassword){
-            toast.error('Password Do Not Match')
-        }else if (!username){
-            username= props.user.username
             let updatedUser:User = {
-                userId,
+                userId: userId,
                 username,
                 password,
                 firstName,
@@ -73,22 +86,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                 role: '',
                 image
             }
-            let res = await dndcharactertrackerUpdateUser(updatedUser)
-        }else{
-            let updatedUser:User = {
-                userId,
-                username,
-                password,
-                firstName,
-                lastName,
-                email,
-                role: '',
-                image
-            }
-            let res = await dndcharactertrackerUpdateUser(updatedUser)
-
-
-        }   
+            let res = await dndcharactertrackerUpdateUser(updatedUser)  
     }
 
 
@@ -103,7 +101,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField autoComplete="off"
-                  variant="outlined"
+                  variant="filled"
                   margin="normal"
                   fullWidth
                   id="username"
@@ -115,7 +113,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField autoComplete="off"
-                  variant="outlined"
+                  variant="filled"
                   margin="normal"
                   fullWidth
                   name="password"
@@ -126,22 +124,9 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
                   onChange={updatePassword}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField autoComplete="off"
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  name="confirm-password"
-                  label="Confirm New Password"
-                  type="password"
-                  id="confirm-password"
-                  value={confirmPassword}
-                  onChange={updateConfirmPassword}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField autoComplete="off"
-                  variant="outlined"
+                  variant="filled"
                   fullWidth
                   id="email"
                   label="Change Email"
@@ -152,7 +137,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField autoComplete="off"
-                  variant="outlined"
+                  variant="filled"
                   fullWidth
                   id="firstName"
                   label="Change First Name"
@@ -163,7 +148,7 @@ export const UpdateUserComponent: FunctionComponent<any> = (props) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField autoComplete="off"
-                  variant="outlined"
+                  variant="filled"
                   fullWidth
                   id="lastName"
                   label="Change Last Name"
@@ -203,7 +188,7 @@ const CustomButton = withStyles((theme) => ({
   },
 }))(Button);
 
-//styles at the bottom because closer to html return
+
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),

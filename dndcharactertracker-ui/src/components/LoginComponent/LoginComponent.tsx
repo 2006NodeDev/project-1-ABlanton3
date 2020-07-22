@@ -48,7 +48,7 @@ export const LoginComponent: FunctionComponent<ILoginProps> = (props) => {
         let res = await dndcharactertrackerLogin(username, password)
         props.changeCurrentUser(res)
         changePassword('')
-        props.history.push('/')
+        props.history.push('/characters')
     }
 
     return (
